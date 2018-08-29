@@ -1,0 +1,94 @@
+#define AI1 5    //motor Right
+#define AI2 4
+#define PWM_A 10
+
+#define BI1 6
+#define BI2 7
+#define PWM_B 11//motor left
+
+void setup() {
+  // put your setup code here, to run once:
+  pinMode(AI2, OUTPUT);
+  pinMode(AI1, OUTPUT);
+  pinMode(PWM_A, OUTPUT);
+  pinMode(BI2, OUTPUT);
+  pinMode(BI2, OUTPUT);
+  pinMode(PWM_B, OUTPUT);
+}
+
+void leftforward(int speed)
+{
+  digitalWrite(BI2, HIGH);
+  digitalWrite(BI1, LOW);
+  analogWrite(PWM_B, speed);
+}
+void leftbackward(int speed)
+{
+  digitalWrite(BI2,LOW);
+  digitalWrite(BI1,HIGH);
+  analogWrite(PWM_B,speed);
+}
+void rightforward(int speed)
+{
+  digitalWrite(AI2, HIGH);
+  digitalWrite(AI1, LOW);
+  analogWrite(PWM_A, speed);
+}
+void rightbackward(int speed)
+{
+  digitalWrite(AI2, LOW);
+  digitalWrite(AI1, HIGH);
+  analogWrite(10, speed);
+}
+
+
+void moveforward()
+{
+  rightforward(200);
+  leftforward(200);  
+}
+void movebackward()
+{
+  rightbackward(200);
+  leftbackward(200);
+}
+void rotateleft()
+{
+  stop();
+  rightforward(100);
+}
+void rotateright()
+{
+  stop();
+  leftforward(100);
+}
+void spin()
+{
+  leftbackward(100);
+  rightforward(100);
+  delay(4000);
+}
+void stop()
+{
+  digitalWrite(AI2, LOW);
+  digitalWrite(AI1, LOW);
+  analogWrite(PWM_A, 0);
+  digitalWrite(BI2, LOW);
+  digitalWrite(BI1, LOW);
+  analogWrite(PWM_B, 0);
+}
+void loop() {
+  // put your main code here, to run repeatedly:
+  //movebackward();
+  //delay(2000);
+  moveforward();
+  delay(2000);
+  rotateleft();
+  delay(1800);
+  rotateright();
+  delay(1800); 
+  spin();
+  stop();
+
+  delay(3000);
+}
